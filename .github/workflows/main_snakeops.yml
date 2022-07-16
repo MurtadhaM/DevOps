@@ -1,8 +1,17 @@
 # Author: Murtadha Marzouq
 # Docker image: https://hub.docker.com/r/mmarzouq/snake-dev-ops
 # Site: https://snakeops.azurewebsites.net/
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+
+# TODO: 
+# - Add a "Deploy to Azure Web App" job
+# - Create a Dockerfile for the app
+# - Add the .dockerignore and .gitignore file to the app
+# - Authenticate to Docker Hub and Azure by adding secrets to the repo
+
+
+
+
 name: Build and deploy Node.js app to Azure Web App - SnakeOps
 
 on:
@@ -28,14 +37,12 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
-      # - name: Upload artifact for deployment job
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: node-app
-      #     path: .
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: node-app
+          path: .
 
-#      - DOCKER HUB IMAGE UPLOAD
-      # - steps:
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v4
