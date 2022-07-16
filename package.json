@@ -2,7 +2,7 @@
   "name": "snake-dev-ps",
   "version": "1.0.0",
   "description": "This Repo Will House my DevOps &amp; CI/CD Projects for Continuous Delivery",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Snake Report: Snakes do not need testing\" ",
     "start": "node app.js",
