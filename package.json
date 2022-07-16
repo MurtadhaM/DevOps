@@ -1,0 +1,23 @@
+{
+  "name": "devops",
+  "version": "1.0.0",
+  "description": "This Repo Will House my DevOps &amp; CI/CD Projects for Continuous Delivery",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MurtadhaM/DevOps.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MurtadhaM/DevOps/issues"
+  },
+  "homepage": "https://github.com/MurtadhaM/DevOps#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
