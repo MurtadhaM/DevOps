@@ -8,7 +8,6 @@
     "start": "node app.js",
     "start:dev": "nodemon app.js",
     "start:prod": "node app.js"
-
   },
   "repository": {
     "type": "git",
@@ -22,7 +21,7 @@
   },
   "homepage": "https://github.com/MurtadhaM/DevOps#readme",
   "dependencies": {
+    "deepai": "^1.0.21",
     "express": "^4.18.1"
-    
   }
 }
