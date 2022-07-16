@@ -4,7 +4,7 @@
   "description": "This Repo Will House my DevOps &amp; CI/CD Projects for Continuous Delivery",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Snake Report: Snakes do not need testing\" ",
     "start": "node app.js",
     "start:dev": "nodemon app.js",
     "start:prod": "node app.js"
