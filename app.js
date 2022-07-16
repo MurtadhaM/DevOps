@@ -8,8 +8,26 @@ app.get('/', (req, res) => {
     }
 
 );
+app.get('/Contact', (req, res) => {
+    // index.html is the file we want to serve
+       res.sendFile(__dirname + '/contact.html');    
+   }
 
+);
 
+app.get('/About', (req, res) => {
+    // index.html is the file we want to serve
+       res.sendFile(__dirname + '/about.html');    
+   }
+
+);
+
+app.get('/Home', (req, res) => {
+    // index.html is the file we want to serve
+       res.sendFile(__dirname + '/home.html');    
+   }
+
+);
 
 
 
