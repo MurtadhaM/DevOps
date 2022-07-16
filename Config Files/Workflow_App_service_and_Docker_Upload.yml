@@ -1,8 +1,17 @@
 # Author: Murtadha Marzouq
 # Docker image: https://hub.docker.com/r/mmarzouq/snake-dev-ops
 # Site: https://snakeops.azurewebsites.net/
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+
+# TODO: 
+# - Add a "Deploy to Azure Web App" job
+# - Create a Dockerfile for the app
+# - Add the .dockerignore and .gitignore file to the app
+# - Authenticate to Docker Hub and Azure by adding secrets to the repo
+
+
+
+
 name: Build and deploy Node.js app to Azure Web App - SnakeOps
 
 on:
@@ -34,35 +43,47 @@ jobs:
           name: node-app
           path: .
 
-#      - DOCKER HUB IMAGE UPLOAD
-      # - steps:
-      - name: Check out the repo
-        uses: actions/checkout@v3
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
 
+        ### ----- DOCKER IMAGE PATH ----- ###
+          images: mmarzouq/snake-dev-ops:latest
       - name: Log in to Docker Hub
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+
+      ### ----- LOGIN TO DOCKER  ----- ###
+
+      #++++++++  DOCKER: https://hub.docker.com/settings/security?generateToken=true +++++++#
+
+
+      #********  URL: https://github.com/MurtadhaM/{REPO}/settings/secrets/actions #********
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
-        with:
-          images: mmarzouq/snake-dev-ops/tags
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+      ### ----- UPLOAD THE DOCKER IMAGE  ----- ###
+      - name: Build and push
+        uses: docker/build-push-action@v3
         with:
           context: .
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }
+          labels: ${{ steps.meta.outputs.labels }}
+
+
+
+
+
+
+### ----- DEPLOYING THE APPLICATION TO AZURE  ----- ###          
   deploy:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: "Production"
+      name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -71,13 +92,13 @@ jobs:
         with:
           name: node-app
 
-      - name: "Deploy to Azure Web App"
+      - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: "SnakeOps"
-          slot-name: "Production"
+          app-name: 'SnakeOps'
+          slot-name: 'Production'
+### ----- AUTHENTICATION TOKEN FROM AZURE  ----- ###          
+#******* URL: App Service ==> Deployment Center ==> Settings==>  Link *******#
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_98C9D1BDE9CA426499C8DB98D9E7B0B3 }}
           package: .
-
-

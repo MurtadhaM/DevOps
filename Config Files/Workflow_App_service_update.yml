@@ -1,5 +1,16 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
+# Author: Murtadha Marzouq
+# Docker image: https://hub.docker.com/r/mmarzouq/snake-dev-ops
+# Site: https://snakeops.azurewebsites.net/
+
+
+# TODO: 
+# - Add a "Deploy to Azure Web App" job
+# - Create a Dockerfile for the app
+# - Add the .dockerignore and .gitignore file to the app
+# - Authenticate to Docker Hub and Azure by adding secrets to the repo
+
+
+
 
 name: Build and deploy Node.js app to Azure Web App - SnakeOps
 
@@ -19,7 +30,7 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v1
         with:
-          node-version: '16.x'
+          node-version: "16.x"
 
       - name: npm install, build, and test
         run: |
@@ -32,6 +43,17 @@ jobs:
           name: node-app
           path: .
 
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+
+
+
+
+
+
+### ----- DEPLOYING THE APPLICATION TO AZURE  ----- ###          
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -51,5 +73,7 @@ jobs:
         with:
           app-name: 'SnakeOps'
           slot-name: 'Production'
+### ----- AUTHENTICATION TOKEN FROM AZURE  ----- ###          
+#******* URL: App Service ==> Deployment Center ==> Settings==>  Link *******#
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_98C9D1BDE9CA426499C8DB98D9E7B0B3 }}
           package: .
