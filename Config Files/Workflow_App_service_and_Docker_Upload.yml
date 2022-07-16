@@ -49,7 +49,7 @@ jobs:
         with:
 
         ### ----- DOCKER IMAGE PATH ----- ###
-          images: mmarzouq/snake-dev-ops:latest
+          images: mmarzouq/snake-dev-ops
       - name: Log in to Docker Hub
 
       ### ----- LOGIN TO DOCKER  ----- ###
