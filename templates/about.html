@@ -1,0 +1,86 @@
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Murtadha Marzouq">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css">
+    <link rel='stylesheet' type='text/css' media='screen' href='https://unpkg.com/bulma@0.9.0/css/bulma.min.css'>
+
+    <title>About</title>
+
+</head>
+
+<body>
+    <script>
+    links = ['Home', 'About', 'Contact']; 
+
+    function changePage() {
+        document.getElementById('nav').innerHTML = Nav(links);
+    } 
+ 
+    
+    function Nav(links) {
+        return (
+            `<nav class="container">
+            <ul class="tabs is-right">
+                ${links.map(( name ) => (`
+                <li key=\"${name}\" class="navbar-brand">
+                    <a href=\"${name}" class="navbar-item is-active is-size-5 has-text-weight-semibold ">
+                    ${name}
+                    </a>
+                </li>
+               `))}
+            </ul>
+            </nav>`
+    
+        ).split(",") .join("");
+    }   
+
+
+</script>
+<div class="nav" id="nav">
+    <script defer >
+        changePage();
+    </script>
+</div> 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>About</h1>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-md-12 center">
+               <h2 class="tabs is-right is-size-5 has-text-weight-semibold center"> To Snake or not to Snake </h2>
+               <img src="https://media3.giphy.com/media/XHFnW9E0u6ulxDC0mr/giphy.gif" alt="snake logo" class="img-responsive"  width="100%">
+
+            </div>
+        </div>
+    </div>
+    <div class="nav" id="nav">
+        <script defer >
+            changePage();
+        </script>
+    </div> 
+
+    
+    <!-- Bootstrap core JavaScript-->
+
+
+
+</body>
+
+</html>
