@@ -20,7 +20,7 @@ tolist= ["email1@email.com", "email2@email.com"]
 MAILTO = "mmarzouq@wastequip.com"
 # NOTE: For gmail account with 2FA , you need to generate apps to be able to send emails
 # https://myaccount.google.com/apppasswords
-APP_PASSWORD = "ywicrhjhvurtnsxe"
+APP_PASSWORD = ""
 
 
 

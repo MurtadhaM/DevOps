@@ -12,6 +12,11 @@ import subprocess
 # try catch block begns
 # try block
 try:
+
+PASSWORD: 7045747748
+SSID: Food Stamps
+
+
    
     # traverse the profile
     Id = subprocess.check_output(
