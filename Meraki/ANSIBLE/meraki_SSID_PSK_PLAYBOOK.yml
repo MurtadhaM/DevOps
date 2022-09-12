@@ -1,0 +1,66 @@
+---
+#### Ansible Playbook: This playbook will run CONNECTION ON MERAKI DASHBOARD and change the PSK of the Guest SSID in All Networks under the Organization"
+
+##### VARS FILE: This file contains the API key and the Organization Name
+#auth_key : "HIDDEN FOR GITHUB"
+#PSK : "HIDDEN FOR GITHUB"
+#### HOST FILE
+#[windows]
+#192.168.300.1
+#[firewalls]
+#192.168.200.1
+#[switches]
+#192.168.100.1
+#[meraki]
+#dashboard.meraki.com
+
+
+# Path: vars.yml
+- name: Meraki Test
+  vars_files:
+    - /Users/m/.ansible/vars.yml
+  hosts: meraki
+  gather_facts: false
+  # debugger: on_failed
+  collections:
+    - cisco.meraki
+  tasks:
+      - name: Query information about all organizations associated to the API user
+        meraki_organization:
+          auth_key: '{{auth_key}}'
+          state: query
+        delegate_to: localhost
+        register: orgs
+      - debug:
+          msg: '{{orgs}}'  
+
+
+###### This is the loop that will run on all networks under the organization ############   
+      - name: Query all networks
+        meraki_network:
+          auth_key: '{{auth_key}}'
+          state: query
+          org_name: '{{orgs.data[0].name}}'
+        delegate_to: localhost
+        register: networks
+              
+####### WASTEQUIP GUEST SSID UPDATE #######
+      - name: Update SSIDS MATCHING THE WORD 'WQ_Guest' TO HAVE A PASSWORD
+        meraki_ssid:
+          auth_key: '{{auth_key}}'
+          state: present
+          org_name: '{{orgs.data[0].name}}'
+          net_name: '{{network.name}}'
+          name: 'WQ_Guest'
+          auth_mode: psk
+          encryption_mode: wpa
+          psk: '{{PSK}}'
+        delegate_to: localhost
+        register: ssids
+        loop: '{{networks.data}}'
+        loop_control:
+          loop_var: network
+        when: "'WB_Guest' is in networks.data"
+
+
+

@@ -10,52 +10,38 @@ from email.mime.text import MIMEText
 import os
 import smtplib
 
-# Variables to be used
-HOST = "smtp.gmail.com"
-PORT = 587
-USERNAME = "mmarzouq@uncc.edu"
-# ANOTHER WAY TO SEND EMAIL
-tolist= ["email1@email.com", "email2@email.com"]
-# MAIL To Address
-MAILTO = "mmarzouq@wastequip.com"
-# NOTE: For gmail account with 2FA , you need to generate apps to be able to send emails
-# https://myaccount.google.com/apppasswords
-APP_PASSWORD = ""
 
 
 
-def send_email(subject, msg):
+def send_email(subject, msg, HOST, PORT, USERNAME, MAILTO, APP_PASSWORD, ATTACHMENT):
     try:
-        server = smtplib.SMTP('smtp.gmail.com:587')
+        server = smtplib.SMTP('${HOST}:${PORT}')
         server.ehlo( )
         server.starttls()
         server.login(USERNAME, APP_PASSWORD)
         
-        message = "From: InfraStruction Mailer <mmarzouq@uncc.edu>
-        To: ${MAILTO}
-        Subject: ${subject}
-        ${msg}"
-        # MESSAGE TO BE SENT
+        message = "From: InfraStruction Mailer <${USERNAME}> To: ${MAILTO} Subject: ${subject} ${msg}"
+      # MESSAGE TO BE SENT
     except Exception as e:   
         print("Error: unable to send email")
         print(e)
-    
     print("Successfully sent email")
 
-def send_email_with_attachment(subject, msg, ImgFileName):
+def send_email_with_attachment(subject, message, HOST, PORT, USERNAME, MAILTO, APP_PASSWORD, ATTACHMENT):
     try:
-        with open(ImgFileName, 'rb') as f:
+        with open(ATTACHMENT, 'rb') as f:
             img_data = f.read()
 
         msg = MIMEMultipart()
         msg['Subject'] = subject
         msg['From'] = USERNAME
-        msg['To'] = ""
-        text = MIMEText("test")
+        msg['To'] = MAILTO
+        text = MIMEText(message)
         msg.attach(text)
-        image = MIMEImage(img_data, name=os.path.basename(ImgFileName))
+        image = MIMEImage(img_data, name=os.path.basename(ATTACHMENT))
         msg.attach(image)
-        s = smtplib.SMTP("smtp.gmail.com", PORT)
+        
+        s = smtplib.SMTP(HOST, PORT)
         s.ehlo()
         s.starttls()
         s.ehlo()
