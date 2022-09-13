@@ -190,8 +190,14 @@ if __name__ == "__main__":
         Name_List.append(net)
         # Change the SSID password
         print("Changing the SSID password...")
-        modify_psk(change_url, headers, payload)
-        print("SSID password changed successfully!" + " " + ssid_name + " " + ssid_password)
+	
+	# SANITY CHECK
+	#######################################
+	if ssid_name == SSID_To_Change:
+	        modify_psk(change_url, headers, payload)
+		print("SSID password changed successfully!" + " " + ssid_name + " " + ssid_password)
+	else:	
+        print("SSID skipped!" + " " + ssid_name + " " + ssid_password)
         
 
         
