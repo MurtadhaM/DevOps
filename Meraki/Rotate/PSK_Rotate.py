@@ -129,17 +129,6 @@ def modify_psk(change_url, header, payld):
     except APIException as e:
         print(e)
 
-def ssid_search(ssid_result, ssid_name):
-    for ssid in ssid_result:
-        if ssid["name"] == ssid_name:
-            ssid_number = ssid["number"]
-            ssid_password = ssid["psk"]
-            return (ssid_number, ssid_name, ssid_password)
-        else:
-            print("SSID not found")
-            #CHECK THIS LINE: PROBLEM
-            
-
 def backup_config(ssid_result, filename):
     # Backup existing settings to local file
     try:
@@ -149,6 +138,31 @@ def backup_config(ssid_result, filename):
     finally:
         outfile.close()
 
+def ssid_search(ssid_result, ssid_name, network):
+    for ssid in ssid_result:
+        if ssid["name"] == ssid_name:
+            ssid_number = ssid["number"]
+            ssid_password = ssid["psk"]
+            payload = '{"psk": "' + NEW_SSID_PASSWORD + '"}'
+        
+            change_url = base_url + network + "/ssids/" + str(ssid_number)
+            # Backup existing settings to local file using the network ID
+            backup_config(ssid_result, f'${network}.json')
+            # ADDING THE URLS TO THE LIST
+            SSID_URLS.append(change_url)
+            # ADDING THE NETWORKS TO THE LIST
+            Name_List.append(network)
+            # Change the SSID password
+            print("Changing the SSID password...")
+            modify_psk(change_url, headers, payload)
+            print("SSID password changed successfully!" + " " + ssid_name + " " + ssid_password)
+            return (ssid_number, ssid_name, ssid_password)
+        else:
+            print("SSID not found")
+            #CHECK THIS LINE: PROBLEM
+            
+
+
 
 
 
@@ -156,7 +170,7 @@ def backup_config(ssid_result, filename):
 NEW_SSID_PASSWORD = "#THISISMYPASS123#" 
 #SSID_To_Change = "WQ_Guest"
 #SSID_To_Change = "WB_Guest"
-SSID_To_Change = "WB_Guest"
+SSID_To_Change = "WQGuest"
 
 if __name__ == "__main__":
     # Get the list of organizations
@@ -174,31 +188,28 @@ if __name__ == "__main__":
     for net in net_list:
         print(net)
         ssid_result = ssids_controller.get_network_ssids(net)
-       
         # for each SSID in the list, check if it is the SSID we want to change
-        ssid_number, ssid_name, ssid_password = ssid_search(ssid_result, SSID_To_Change)
+        ssid_number, ssid_name, ssid_password = ssid_search(ssid_result, SSID_To_Change,net)
         
-        # generating the PAYLOAD (JSON) for the PUT request
-        payload = '{"psk": "' + NEW_SSID_PASSWORD + '"}'
+     #    # generating the PAYLOAD (JSON) for the PUT request
+     #    payload = '{"psk": "' + NEW_SSID_PASSWORD + '"}'
         
-        change_url = base_url + net + "/ssids/" + str(ssid_number)
-        # Backup existing settings to local file using the network ID
-        backup_config(ssid_result, f'${net}.json')
-        # ADDING THE URLS TO THE LIST
-        SSID_URLS.append(change_url)
-        # ADDING THE NETWORKS TO THE LIST
-        Name_List.append(net)
-        # Change the SSID password
-        print("Changing the SSID password...")
-	
+     #    change_url = base_url + net + "/ssids/" + str(ssid_number)
+     #    # Backup existing settings to local file using the network ID
+     #    backup_config(ssid_result, f'${net}.json')
+     #    # ADDING THE URLS TO THE LIST
+     #    SSID_URLS.append(change_url)
+     #    # ADDING THE NETWORKS TO THE LIST
+     #    Name_List.append(net)
+     #    # Change the SSID password
+     #    print("Changing the SSID password...")
+	    # modify_psk(change_url, headers, payload)
+     #    print("SSID password changed successfully!" + " " + ssid_name + " " + ssid_password)
+
+    
 	# SANITY CHECK
 	#######################################
-	if ssid_name == SSID_To_Change:
-	        modify_psk(change_url, headers, payload)
-		print("SSID password changed successfully!" + " " + ssid_name + " " + ssid_password)
-	else:	
-        print("SSID skipped!" + " " + ssid_name + " " + ssid_password)
-        
+
 
         
     
