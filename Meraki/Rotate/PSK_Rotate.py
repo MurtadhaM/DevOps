@@ -137,7 +137,8 @@ def ssid_search(ssid_result, ssid_name):
             return (ssid_number, ssid_name, ssid_password)
         else:
             print("SSID not found")
-            break
+            #CHECK THIS LINE: PROBLEM
+            
 
 def backup_config(ssid_result, filename):
     # Backup existing settings to local file
