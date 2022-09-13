@@ -19,7 +19,7 @@ import requests
 from meraki_sdk.meraki_sdk_client import MerakiSdkClient
 from meraki_sdk.exceptions.api_exception import APIException
 
-x_cisco_meraki_api_key = os.environ.get("API KEY")
+x_cisco_meraki_api_key = ""
 meraki = MerakiSdkClient(x_cisco_meraki_api_key)
 networks_controller = meraki.networks
 devices_controller = meraki.devices
@@ -137,7 +137,7 @@ def ssid_search(ssid_result, ssid_name):
             return (ssid_number, ssid_name, ssid_password)
         else:
             print("SSID not found")
-            return None
+            break
 
 def backup_config(ssid_result, filename):
     # Backup existing settings to local file
@@ -152,10 +152,10 @@ def backup_config(ssid_result, filename):
 
 
 # New Password 
-NEW_SSID_PASSWORD = "##Murtadha##" 
-SSID_To_Change = "WQ_Guest"
-
-
+NEW_SSID_PASSWORD = "#THISISMYPASS123#" 
+#SSID_To_Change = "WQ_Guest"
+#SSID_To_Change = "WB_Guest"
+SSID_To_Change = "WB_Guest"
 
 if __name__ == "__main__":
     # Get the list of organizations
