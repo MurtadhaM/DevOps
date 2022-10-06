@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "This Repo Will House my DevOps &amp; CI/CD Projects for Continuous Delivery",
   "main": "app.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Snake Report: Snakes do not need testing\" ",
     "start": "node app.js",
@@ -23,6 +22,7 @@
   "homepage": "https://github.com/MurtadhaM/DevOps#readme",
   "dependencies": {
     "deepai": "^1.0.21",
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "nodemon": "^2.0.20"
   }
 }

@@ -1,7 +1,6 @@
 
 # Setup Base Image
 FROM node:12
-
 # Setup Working Directory
 WORKDIR /app
 # Update Node Dependencies
@@ -12,7 +11,9 @@ RUN npm install
 COPY . .
 # Setup Port
 ENV port=8080
-# Make the app available on the port
+# Make the app advailable on the port
 EXPOSE 8080
 # Run the app
 CMD ["npm", "start"]
+
+

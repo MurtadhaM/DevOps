@@ -11,26 +11,7 @@ app.get('/', (req, res) => {
 }
 );
 
-app.get('/Contact', (req, res) => {
-    // index.html is the file we want to serve
-    res.sendFile(__dirname + '/templates/contact.html');
-}
 
-);
-
-app.get('/About', (req, res) => {
-    // index.html is the file we want to serve
-    res.sendFile(__dirname + '/templates/about.html');
-}
-
-);
-
-
-function show_image(image_name) {
-    var img = document.createElement("img");
-    img.src = image_name;
-    document.body.appendChild(img);
-}
 
 
 app.get('/Home', (req, res) => {
@@ -38,10 +19,7 @@ app.get('/Home', (req, res) => {
     console.log(req.query.query);
 
     
-    res.sendFile(__dirname + '/templates/home.html');
-    
-    
-
+    res.sendFile(__dirname + '/templates/index.html');
 
     }
     );

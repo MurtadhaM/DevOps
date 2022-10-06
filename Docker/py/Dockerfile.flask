@@ -1,0 +1,6 @@
+FROM python
+COPY . /opt/source-code
+RUN pip install pyopenssl flask
+WORKDIR /opt/source-code
+ENTRYPOINT [ "python", "/opt/source-code/flask_server.py" ]
+

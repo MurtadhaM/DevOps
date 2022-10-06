@@ -1,0 +1,4 @@
+FROM python
+COPY . /opt/source-code
+CMD ["python", "/opt/source-code/app.py"]
+
